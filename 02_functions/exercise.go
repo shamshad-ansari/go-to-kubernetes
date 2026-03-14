@@ -1,7 +1,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"strconv"
 )
 
 // SafeDivide divides a by b and returns the result.
@@ -11,9 +13,12 @@ import (
 // in any real Go codebase.
 func SafeDivide(a, b float64) (float64, error) {
 	// TODO: Check if b is zero. If so, return 0 and an error.
+	if b == 0 {
+		return 0, errors.New("Divide by 0")
+	}
 	// TODO: Otherwise, return a/b and nil.
 
-	return 0, nil // replace this
+	return a/b, nil
 }
 
 // GradeCalculator takes a slice of scores (0-100) and returns:
@@ -26,12 +31,35 @@ func SafeDivide(a, b float64) (float64, error) {
 //   - Invalid score: "invalid score: X.X" (where X.X is the bad score)
 func GradeCalculator(scores []float64) (float64, string, error) {
 	// TODO: Check for empty slice, return error.
+	if len(scores) == 0{
+		return 0, "" , errors.New("Score Not Provided")
+	}
 	// TODO: Validate all scores are in [0, 100], return error on first invalid.
+	var sum float64
+	for _ , s := range(scores) {
+		if s < 0 || s > 100 {
+			return 0, "", fmt.Errorf("invalid score: %.1f", s)
+		}
+		sum += s
+	}
 	// TODO: Calculate the average.
+	avg := sum/float64(len(scores))
 	// TODO: Determine the letter grade based on the average.
+	var grade string
+	switch {
+	case avg >= 90:
+		grade = "A"
+	case avg >= 80:
+		grade = "B"
+	case avg >= 70:
+		grade = "C"
+	case avg >= 60:
+		grade = "D"
+	default:
+		grade = "F"
+	}
 	// TODO: Return average, grade, nil.
-
-	return 0, "", nil // replace this
+	return avg, grade, nil
 }
 
 // ChainedOperation takes a numeric string, parses it to a float, doubles it,
@@ -48,12 +76,20 @@ func GradeCalculator(scores []float64) (float64, string, error) {
 // Hint: use strconv.ParseFloat and fmt.Errorf to wrap errors.
 func ChainedOperation(input string) (float64, error) {
 	// TODO: Parse the input string to float64 using strconv.ParseFloat.
+	parsed, err := strconv.ParseFloat(input, 64)
 	// TODO: If parsing fails, return a descriptive error wrapping the original.
+		if err != nil {
+		return 0, fmt.Errorf("failed to parse '%s': %w", input, err)
+	}
 	// TODO: Double the parsed value.
+	parsed = parsed * 2
 	// TODO: Check bounds [0, 1000]. Return an error if out of range.
+	if parsed < 0 || parsed > 1000 {
+		return 0, fmt.Errorf("result %.1f out of bounds [0, 1000]", parsed) 
+	}
 	// TODO: Return the doubled value and nil.
 
-	return 0, nil // replace this
+	return parsed, nil
 }
 
 func main() {
