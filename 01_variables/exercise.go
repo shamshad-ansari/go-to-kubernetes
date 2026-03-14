@@ -14,12 +14,16 @@ import "fmt"
 func ZeroValues() string {
 	// TODO: Declare four variables (int, float64, string, bool) WITHOUT
 	// assigning values to them. Use the `var` keyword.
+	var i int;
+	var f float64;
+	var s string;
+	var b bool;
 
 	// TODO: Return a formatted string using fmt.Sprintf showing each
 	// variable's value. Use this exact format:
 	// "int: %d, float64: %.1f, string: '%s', bool: %t"
 
-	return "" // replace this
+	return fmt.Sprintf("int: %d, float64: %.1f, string: '%s', bool: %t", i, f, s, b)
 }
 
 // TypeConverter takes a temperature in Celsius and returns it in Fahrenheit
@@ -32,11 +36,11 @@ func ZeroValues() string {
 // that slip through in dynamically typed languages.
 func TypeConverter(celsius float64) int {
 	// TODO: Apply the Fahrenheit formula.
+	f := celsius * 9.0/5.0 + 32.0
 	// TODO: Convert the float64 result to int and return it.
 	// Remember: int() truncates toward zero, it does not round.
 	// For rounding, add 0.5 before truncating (for positive values).
-
-	return 0 // replace this
+	return int(f+0.5)
 }
 
 // ConstantReport demonstrates Go constants.
@@ -49,12 +53,15 @@ func TypeConverter(celsius float64) int {
 // Format: "pi: 3.14159, maxRetries: 5, product: 15.70795"
 func ConstantReport() string {
 	// TODO: Declare an untyped constant Pi = 3.14159
+	const Pi = 3.14159
 	// TODO: Declare a typed constant MaxRetries int = 5
+	const MaxRetries int = 5
 	// TODO: Compute the product of Pi and float64(MaxRetries)
+	product := Pi * float64(MaxRetries)
 	// TODO: Return the formatted string using fmt.Sprintf
 	// Use format: "pi: %.5f, maxRetries: %d, product: %.5f"
 
-	return "" // replace this
+	return fmt.Sprintf("pi: %.5f, maxRetries: %d, product: %.5f ", Pi, MaxRetries, product)
 }
 
 func main() {
