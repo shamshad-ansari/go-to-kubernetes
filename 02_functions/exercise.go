@@ -12,11 +12,9 @@ import (
 // This is THE most common Go pattern. You'll see it hundreds of times
 // in any real Go codebase.
 func SafeDivide(a, b float64) (float64, error) {
-	// TODO: Check if b is zero. If so, return 0 and an error.
 	if b == 0 {
 		return 0, errors.New("Divide by 0")
 	}
-	// TODO: Otherwise, return a/b and nil.
 
 	return a/b, nil
 }
@@ -30,11 +28,9 @@ func SafeDivide(a, b float64) (float64, error) {
 //   - Empty slice: "no scores provided"
 //   - Invalid score: "invalid score: X.X" (where X.X is the bad score)
 func GradeCalculator(scores []float64) (float64, string, error) {
-	// TODO: Check for empty slice, return error.
 	if len(scores) == 0{
 		return 0, "" , errors.New("Score Not Provided")
 	}
-	// TODO: Validate all scores are in [0, 100], return error on first invalid.
 	var sum float64
 	for _ , s := range(scores) {
 		if s < 0 || s > 100 {
@@ -42,9 +38,9 @@ func GradeCalculator(scores []float64) (float64, string, error) {
 		}
 		sum += s
 	}
-	// TODO: Calculate the average.
+
 	avg := sum/float64(len(scores))
-	// TODO: Determine the letter grade based on the average.
+
 	var grade string
 	switch {
 	case avg >= 90:
@@ -58,7 +54,7 @@ func GradeCalculator(scores []float64) (float64, string, error) {
 	default:
 		grade = "F"
 	}
-	// TODO: Return average, grade, nil.
+
 	return avg, grade, nil
 }
 
@@ -75,21 +71,23 @@ func GradeCalculator(scores []float64) (float64, string, error) {
 //
 // Hint: use strconv.ParseFloat and fmt.Errorf to wrap errors.
 func ChainedOperation(input string) (float64, error) {
-	// TODO: Parse the input string to float64 using strconv.ParseFloat.
+
 	parsed, err := strconv.ParseFloat(input, 64)
-	// TODO: If parsing fails, return a descriptive error wrapping the original.
-		if err != nil {
-		return 0, fmt.Errorf("failed to parse '%s': %w", input, err)
+
+	if err != nil {
+	return 0, fmt.Errorf("failed to parse '%s': %w", input, err)
 	}
-	// TODO: Double the parsed value.
+
 	parsed = parsed * 2
-	// TODO: Check bounds [0, 1000]. Return an error if out of range.
+
 	if parsed < 0 || parsed > 1000 {
 		return 0, fmt.Errorf("result %.1f out of bounds [0, 1000]", parsed) 
 	}
-	// TODO: Return the doubled value and nil.
 
 	return parsed, nil
+
+	// What I learned
+	// errors.New is for sentinel(guard erros) and fmt.Errorf is for formatting erros
 }
 
 func main() {

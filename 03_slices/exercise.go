@@ -58,6 +58,11 @@ func RotateLeft(nums []int, k int) []int {
 	copy(result[n-k:], nums[:k])
 
 	return result
+
+	// What I learned
+	// copy here writes into a slice of result (which is itself a slice). 
+	// Slices share the same underlying array, so updating any slice of result 
+	// updates the underlying array, and the changes are reflected in result.
 }
 
 func main() {
