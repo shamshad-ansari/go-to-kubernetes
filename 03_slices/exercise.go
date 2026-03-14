@@ -7,11 +7,13 @@ import "fmt"
 //
 // Example: FilterEven([]int{1, 2, 3, 4, 5, 6}) → [2, 4, 6]
 func FilterEven(nums []int) []int {
-	// TODO: Create an empty result slice.
-	// TODO: Loop through nums. If a number is even (num%2 == 0), append it.
-	// TODO: Return the result.
-
-	return nil // replace this
+	result := []int{}
+	for _, item := range(nums){
+		if (item % 2 == 0) {
+			result = append(result, item)
+		}
+	}
+	return result
 }
 
 // RemoveDuplicates returns a new slice with duplicate values removed.
@@ -19,13 +21,16 @@ func FilterEven(nums []int) []int {
 //
 // Example: RemoveDuplicates([]int{3, 1, 4, 1, 5, 9, 2, 6, 5}) → [3, 1, 4, 5, 9, 2, 6]
 func RemoveDuplicates(nums []int) []int {
-	// TODO: Create a map to track which numbers you've already seen.
-	// TODO: Create an empty result slice.
-	// TODO: Loop through nums. If the number hasn't been seen, add it to
-	//       result and mark it as seen.
-	// TODO: Return the result.
-
-	return nil // replace this
+	seen := make(map[int]bool)
+	result := []int{}
+	for _, item := range(nums){
+		if !seen[item]{
+			seen[item] = true
+			result = append(result, item)
+		}
+		
+	}
+	return result
 }
 
 // RotateLeft rotates a slice to the left by k positions.
@@ -38,13 +43,21 @@ func RemoveDuplicates(nums []int) []int {
 //   - If k is larger than the slice length, it should wrap (use modulo).
 //   - If k is negative, treat it as a right rotation.
 func RotateLeft(nums []int, k int) []int {
-	// TODO: Handle edge cases (empty slice, single element).
-	// TODO: Normalize k using modulo so it's within [0, len(nums)).
-	//       Hint: k = k % len(nums); handle negative k.
-	// TODO: Build the rotated slice using slice expressions.
-	//       The result is nums[k:] followed by nums[:k].
+	n := len(nums)
+	if n <= 1 {
+		return nums
+	}
 
-	return nil // replace this
+	k %= n
+	if k < 0 {
+		k += n
+	}
+
+	result := make([]int, n)
+	copy(result, nums[k:])
+	copy(result[n-k:], nums[:k])
+
+	return result
 }
 
 func main() {
